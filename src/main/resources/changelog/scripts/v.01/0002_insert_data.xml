@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="insert_to_role" author="oadmin" >
+        <insert schemaName="authschema" tableName="role">
+            <column name="id" value="1"/>
+            <column name="name" value="ROLE_ADMIN"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert_to_user" author="oadmin" >
+        <insert schemaName="authschema" tableName="user">
+            <column name="id"  value="1"/>
+            <column name="username" value="admin"/>
+            <column name="password" value="$2a$10$UvgQuK1Qr9mLvgrcsodOkOZ09TKGbSBfaVjuOtczTJPtie3kPzxXC"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert_to_user_role" author="oadmin" >
+        <insert schemaName="authschema"  tableName="user_role">
+            <column name="user_id" value="1"/>
+            <column name="role_id" value="1"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert_to_oauth_client_details" author="oadmin" >
+        <insert tableName="oauth_client_details">
+            <column name="client_id" value="clientid"/>
+            <column name="resource_ids" value="oauth2_application"/>
+            <column name="client_secret" value="$2a$10$c3puEUrcC97yfm/o5wOnsurFayO.x39nvsHzQ/7gd5wo5Z3drr6C2"/>
+            <column name="scope" value="read,write"/>
+            <column name="authorized_grant_types" value="refresh_token,password"/>
+            <column name="authorities" value="ROLE_ADMIN"/>
+            <column name="access_token_validity" value="3600"/>
+            <column name="refresh_token_validity" value="10000"/>
+            <column name="autoapprove" value="*"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,8 @@
+2019-04-19 13:08:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Таблица "DATABASECHANGELOGLOCK" не найдена
+Table "DATABASECHANGELOGLOCK" not found; SQL statement:
+select count(*) from PUBLIC.DATABASECHANGELOGLOCK [42102-197]
+2019-04-19 13:08:50 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Таблица "PG_CLASS" не найдена
+Table "PG_CLASS" not found; SQL statement:
+select relname from pg_class where relkind='S' [42102-197]

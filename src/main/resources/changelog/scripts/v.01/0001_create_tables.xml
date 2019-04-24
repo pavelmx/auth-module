@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+
+    <changeSet id="create_table_access_token" author="oadmin">
+        <createTable tableName="oauth_access_token">
+            <column name="authentication_id" type="varchar(255)" defaultValueSequenceNext="sq_token">
+                <constraints primaryKey="true" primaryKeyName="pk_authentication_id_access" nullable="false"/>
+            </column>
+            <column name="user_name" type="varchar(255)"></column>
+            <column name="client_id" type="varchar(255)"></column>
+            <column name="token" type="bytea"></column>
+            <column name="token_id" type="varchar(255)"></column>
+            <column name="authentication" type="bytea"></column>
+            <column name="refresh_token" type="varchar(255)"></column>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="create_table_oauth_client_details" author="oadmin">
+        <createTable tableName="oauth_client_details">
+            <column name="client_id" type="varchar(255)" defaultValueSequenceNext="sq_token">
+                <constraints primaryKey="true" primaryKeyName="pk_client_id" nullable="false"/>
+            </column>
+            <column name="resource_ids" type="varchar(255)"></column>
+            <column name="client_secret" type="varchar(255)"></column>
+            <column name="scope" type="varchar(255)"></column>
+            <column name="authorized_grant_types" type="varchar(255)"></column>
+            <column name="web_server_redirect_uri" type="varchar(255)"></column>
+            <column name="authorities" type="varchar(255)"></column>
+            <column name="access_token_validity" type="int"></column>
+            <column name="refresh_token_validity" type="int"></column>
+            <column name="additional_information" type="varchar(4096)"></column>
+            <column name="autoapprove" type="varchar(255)"></column>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="create_table_refresh_token" author="oadmin">
+        <createTable tableName="oauth_refresh_token">
+            <column name="token" type="bytea"></column>
+            <column name="token_id" type="varchar(255)"></column>
+            <column name="authentication" type="bytea"></column>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="create_table_user" author="oadmin">
+        <createTable schemaName="authschema" tableName="user">
+            <column name="id" type="int" defaultValueSequenceNext="sq_user">
+                <constraints primaryKey="true" primaryKeyName="pk_user_id" nullable="false"/>
+            </column>
+            <column name="username" type="varchar(50)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="password" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated" type="timestamp"></column>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="create_table_role" author="oadmin">
+        <createTable schemaName="authschema" tableName="role">
+            <column name="id" type="int" defaultValueSequenceNext="sq_role">
+                <constraints primaryKey="true" primaryKeyName="pk_role_id" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="created" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated" type="timestamp"></column>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="create_table_user_role" author="oadmin">
+        <createTable schemaName="authschema" tableName="user_role">
+            <column name="user_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                constraintName="fk_user_role_user"
+                baseTableSchemaName="authschema"
+                baseTableName="user_role"
+                baseColumnNames="user_id"
+                referencedTableName="user"
+                referencedColumnNames="id"
+                referencedTableSchemaName="authschema"
+                deleteCascade="true"/>
+
+        <addForeignKeyConstraint
+                constraintName="fk_user_role_role"
+                baseTableSchemaName="authschema"
+                baseTableName="user_role"
+                baseColumnNames="role_id"
+                referencedTableName="role"
+                referencedColumnNames="id"
+                referencedTableSchemaName="authschema"
+                deleteCascade="true"/>
+
+    </changeSet>
+
+</databaseChangeLog>

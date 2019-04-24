@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="sq_user" author="oadmin">
+        <createSequence sequenceName="sq_user"  incrementBy="10" startValue="1000"
+                        minValue="1000"/>
+    </changeSet>
+
+    <changeSet id="sq_role" author="oadmin">
+        <createSequence sequenceName="sq_role"  incrementBy="10" startValue="1000"
+                        minValue="1000"/>
+    </changeSet>
+
+    <changeSet id="sq_token" author="oadmin">
+        <createSequence sequenceName="sq_token" incrementBy="10" startValue="1000"
+                        minValue="1000"/>
+    </changeSet>
+
+
+</databaseChangeLog>
