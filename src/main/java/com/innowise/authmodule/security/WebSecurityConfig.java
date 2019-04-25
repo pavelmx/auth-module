@@ -45,19 +45,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        http.cors()
+                .and()
+                .csrf().disable()
                 .authorizeRequests()
-                .anyRequest().authenticated()
                 .antMatchers(HttpMethod.OPTIONS, "/oauth/**","/client/register" ).permitAll()
-                .antMatchers("/client/register").permitAll()
+                .anyRequest().authenticated()
                 .and()
                     .sessionManagement()
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
 
-                .and()
-                    .cors()
-                .and()
-                    .csrf().disable()
                         .exceptionHandling()
                         .authenticationEntryPoint((request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED));
     }
@@ -66,7 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                    .antMatchers("/h2_console/**", "/client/register");
+                    .antMatchers("/h2_console/**");
 
     }
 

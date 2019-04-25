@@ -12,6 +12,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.security.auth.login.AccountException;
+import javax.validation.Valid;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +29,7 @@ public class AccountController {
     RoleRepositoryImpl roleRepo;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody User user, @RequestParam String roleNames) {
+    public ResponseEntity<?> register(@RequestBody @Valid User user, @RequestParam String roleNames) {
         try {
             return new ResponseEntity<>(userDetailsService.create(user, roleNames), HttpStatus.CREATED);
         } catch (AccountException e) {
@@ -47,6 +49,11 @@ public class AccountController {
         return  cars;
     }
 
+    @RequestMapping("/user")
+    public Principal user(Principal user) {
+        System.out.println("//////////////////////");
+        return user;
+    }
 
 }
 

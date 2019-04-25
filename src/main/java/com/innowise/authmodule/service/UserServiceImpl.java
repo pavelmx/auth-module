@@ -50,7 +50,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             roles.add(roleRepo.findByName(role)
                     .orElseThrow(() -> new NotFoundException("Role with name '" + role + "' not found")));
         }*/
-        System.out.println("--------------- " + roleNames);
         roles.add(roleRepo.findByName(roleNames).get());
         user.setRoles(roles);
         user.setCreated(LocalDateTime.now());
