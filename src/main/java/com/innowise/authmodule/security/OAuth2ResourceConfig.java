@@ -27,7 +27,6 @@ public class OAuth2ResourceConfig extends ResourceServerConfigurerAdapter {
 
     @Bean
     public TokenStore tokenStore() {
-//        return new InMemoryTokenStore();
         return new JdbcTokenStore(dataSource);
     }
 
@@ -36,7 +35,6 @@ public class OAuth2ResourceConfig extends ResourceServerConfigurerAdapter {
         resources.resourceId(resourceId).stateless(false).tokenStore(tokenStore());
     }
 
-
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
@@ -44,6 +42,4 @@ public class OAuth2ResourceConfig extends ResourceServerConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/**").authenticated();
     }
-
-
 }

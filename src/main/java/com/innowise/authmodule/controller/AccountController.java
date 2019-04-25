@@ -39,16 +39,6 @@ public class AccountController {
         }
     }
 
-    @GetMapping("/cars")
-    public List<String> getCars(){
-        List<String> cars = new ArrayList<>();
-        cars.add("BMW");cars.add("AUDI");cars.add("McLaren");
-        cars.add("FERRARI");cars.add("VOLKSWAGEN");cars.add("LADA");
-        cars.add("RENAULT");cars.add("CITROEN");cars.add("PEUGEOT");
-        cars.add("LAMBORGINI");cars.add("BYGATTI");cars.add("MERCEDES-BENZ");
-        return  cars;
-    }
-
     @RequestMapping("/user")
     public Principal user(Principal user) {
         System.out.println("//////////////////////");

@@ -49,7 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS, "/oauth/**","/client/register" ).permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "/oauth/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                     .sessionManagement()
@@ -64,7 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                    .antMatchers("/h2_console/**");
+                    .antMatchers("/h2_console/**","/client/register" );
 
     }
 

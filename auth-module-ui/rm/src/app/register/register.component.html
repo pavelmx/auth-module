@@ -1,0 +1,72 @@
+<div class="container mt-5" style="max-width: 500px">
+  <h2>Registration</h2>
+  <form name="form" (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm">
+    <div class="form-group">
+      <input type="text" class="form-control" name="username" placeholder="Username" [(ngModel)]="form.username"
+        #username="ngModel" required
+        [ngClass]="{'is-valid':username.valid && username.touched,'is-invalid':username.invalid && username.touched}" />
+      <div *ngIf="username.touched && username.invalid">
+        <small class="form-text alert alert-danger" *ngIf="username.errors.required">Username is required</small>
+      </div>
+    </div>
+
+    <div class="form-group "> 
+      <input type="password" class="form-control" name="password" placeholder="Password" [(ngModel)]="form.password"
+        #password="ngModel" required
+        [ngClass]="{'is-valid':password.valid && password.touched,'is-invalid':password.invalid && password.touched}" />
+      <div *ngIf="password.touched && password.invalid">
+        <small class="form-text alert alert-danger" *ngIf="password.errors.required">Password is required</small>
+      </div>
+    </div>
+<!-- 
+    <div class="form-group">
+      <input type="text" class="form-control" name="first_name" placeholder="first_name" [(ngModel)]="form.first_name"
+        #first_name="ngModel" required
+        [ngClass]="{'is-valid':first_name.valid && first_name.touched,'is-invalid':first_name.invalid && first_name.touched}" />
+      <div *ngIf="first_name.touched && first_name.invalid">
+        <small class="form-text alert alert-danger" *ngIf="first_name.errors.required">first_name is required</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input type="text" class="form-control" name="last_name" placeholder="last_name" [(ngModel)]="form.last_name"
+        #last_name="ngModel" required
+        [ngClass]="{'is-valid':last_name.valid && last_name.touched,'is-invalid':last_name.invalid && last_name.touched}" />
+      <div *ngIf="last_name.touched && last_name.invalid">
+        <small class="form-text alert alert-danger" *ngIf="last_name.errors.required">last_name is required</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input type="text" class="form-control" name="email" placeholder="email" [(ngModel)]="form.email" #email="ngModel"
+        required [ngClass]="{'is-valid':email.valid && email.touched,'is-invalid':email.invalid && email.touched}" />
+      <div *ngIf="email.touched && email.invalid">
+        <small class="form-text alert alert-danger" *ngIf="email.errors.required">email is required</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input type="text" class="form-control" name="tel" placeholder="tel" [(ngModel)]="form.tel" #tel="ngModel"
+        required [ngClass]="{'is-valid':tel.valid && tel.touched,'is-invalid':tel.invalid && tel.touched}" />
+      <div *ngIf="tel.touched && tel.invalid">
+        <small class="form-text alert alert-danger" *ngIf="tel.errors.required">tel is required</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input type="text" class="form-control" name="skype" placeholder="skype" [(ngModel)]="form.skype" #skype="ngModel"
+        required [ngClass]="{'is-valid':skype.valid && skype.touched,'is-invalid':skype.invalid && skype.touched}" />
+      <div *ngIf="skype.touched && skype.invalid">
+        <small class="form-text alert alert-danger" *ngIf="skype.errors.required">skype is required</small>
+      </div>
+    </div>
+ -->
+    
+    <div class="form-group">
+      <button class="btn btn-primary" [disabled]="f.form.invalid">Register</button>
+    </div>
+  </form>
+  <div>
+    {{error}}
+  </div>
+</div>

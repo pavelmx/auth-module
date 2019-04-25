@@ -67,14 +67,5 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.jdbc(dataSource).passwordEncoder(passwordEncoder);
-        //clients.withClientDetails(clientDetails());
-        /*clients.inMemory().withClient("clientid")
-                .authorizedGrantTypes("password", "refresh_token")
-                .authorities("ROLE_ADMIN")
-                .scopes("read", "write")
-                .resourceIds("oauth2_application")
-                .secret(passwordEncoder.encode("clientsecret"))
-                .accessTokenValiditySeconds(3000)
-                .refreshTokenValiditySeconds(4800);*/
     }
 }
