@@ -13,7 +13,7 @@ public class Role implements Serializable  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator", schema = "authschema", sequenceName = "sq_role")
+    @SequenceGenerator(name = "sequenceGenerator", schema = "public", sequenceName = "sq_role")
     private Long id;
 
     @NotBlank

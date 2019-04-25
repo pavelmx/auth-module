@@ -23,7 +23,7 @@ public class User implements UserDetails, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator", schema = "authschema", sequenceName = "sq_user")
+    @SequenceGenerator(name = "sequenceGenerator", schema = "public", sequenceName = "sq_user")
     private Long id;
 
     @NotBlank

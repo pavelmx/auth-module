@@ -48,12 +48,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .anyRequest().authenticated()
-                .antMatchers(HttpMethod.OPTIONS,"/", "/oauth/**").permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "/oauth/**","/client/register" ).permitAll()
+                .antMatchers("/client/register").permitAll()
                 .and()
                     .sessionManagement()
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                    .httpBasic()
+
                 .and()
                     .cors()
                 .and()
@@ -66,7 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                    .antMatchers("/h2_console/**",  "/client/register");
+                    .antMatchers("/h2_console/**", "/client/register");
 
     }
 

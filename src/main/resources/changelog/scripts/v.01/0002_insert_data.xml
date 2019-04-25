@@ -17,6 +17,7 @@
             <column name="id"  value="1"/>
             <column name="username" value="admin"/>
             <column name="password" value="$2a$10$UvgQuK1Qr9mLvgrcsodOkOZ09TKGbSBfaVjuOtczTJPtie3kPzxXC"/>
+
         </insert>
     </changeSet>
 
@@ -24,6 +25,7 @@
         <insert schemaName="authschema"  tableName="user_role">
             <column name="user_id" value="1"/>
             <column name="role_id" value="1"/>
+
         </insert>
     </changeSet>
 

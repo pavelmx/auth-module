@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.security.auth.login.AccountException;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -52,6 +53,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         System.out.println("--------------- " + roleNames);
         roles.add(roleRepo.findByName(roleNames).get());
         user.setRoles(roles);
+        user.setCreated(LocalDateTime.now());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepo.save(user);
         return user;
