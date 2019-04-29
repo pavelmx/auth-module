@@ -1,30 +1,35 @@
 <div class=" container mt-5 " style="max-width:500px">
 
   <div class=" ">
-    <h2 >Login </h2>
+    <h2>Login </h2>
     <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
-        <div class="form-group">
-            <input type="text" class="form-control" name="username" placeholder="Username" [(ngModel)]="form.username"
-              #username="ngModel" required 
-              [ngClass]="{'is-valid':username.valid && username.touched,'is-invalid':username.invalid && username.touched}" />
-          <div *ngIf="username.touched && username.invalid">
-              <small class="form-text alert alert-danger" *ngIf="username.errors.required">Username is required</small>
-            </div>    
-          </div>
+      <div class="form-group">
+        <input type="text" class="form-control" name="username" placeholder="Username" [(ngModel)]="form.username"
+          #username="ngModel" required
+          [ngClass]="{'is-valid':username.valid && username.touched,'is-invalid':username.invalid && username.touched}" />
+        <div *ngIf="username.touched && username.invalid">
+          <small class="form-text alert alert-danger" *ngIf="username.errors.required">Username is required</small>
+        </div>
+      </div>
 
-          <div class="form-group ">
-            <input type="password" class="form-control" name="password" placeholder="Password" [(ngModel)]="form.password"
-              #password="ngModel" required 
-              [ngClass]="{'is-valid':password.valid && password.touched,'is-invalid':password.invalid && password.touched}" />
-            <div *ngIf="password.touched && password.invalid">
-              <small class="form-text alert alert-danger" *ngIf="password.errors.required">Password is required</small>
-            </div>
+      <div class="form-group ">
+        <input type="password" class="form-control" name="password" placeholder="Password" [(ngModel)]="form.password"
+          #password="ngModel" required
+          [ngClass]="{'is-valid':password.valid && password.touched,'is-invalid':password.invalid && password.touched}" />
+        <div *ngIf="password.touched && password.invalid">
+          <small class="form-text alert alert-danger" *ngIf="password.errors.required">Password is required</small>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col">
+            <button class="btn btn-primary" [disabled]="f.form.invalid">Login</button>
           </div>
-          <div class="form-group">
-              <button class="btn btn-primary" [disabled]="f.form.invalid" >Login</button>
-            </div>
-    </form>
-    <button class="btn" routerLink="/register">Register</button>
+          <button class="btn" routerLink="/register">Register</button>
+        </div>
+      </div>
+    </form> 
+
   </div>
-  
-</div>
+  <div *ngIf="error != ''" class="alert alert-danger">{{error}}</div>
+</div> <button class="btn btn-secondary" (click)="print()" >print</button>

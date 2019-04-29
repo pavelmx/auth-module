@@ -12,35 +12,38 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class LoginComponent implements OnInit {  
   form: any = {};
-  token: string ='';
-
+  token: string =''; 
+  error: string = '';  
+ 
   constructor(
     private authService: AuthService,    
-    private router: Router,
-    private route: ActivatedRoute) { }
+    ) { }
 
-
+ 
     ngOnInit() {
-      window.sessionStorage.clear();     
-    }
+      localStorage.clear();     
+    }    
 
-
-  onSubmit() {    
+  onSubmit() {   
+    this.error =''; 
       const loginInfo = new HttpParams()
       .set('username', this.form.username)
       .set('password', this.form.password)
       .set('grant_type', 'password');
 
       this.authService.login(loginInfo.toString())
-      .subscribe( data =>{
-        this.router.navigate(['/home']);
+      .subscribe( data =>{        
         this.token = JSON.stringify(data['access_token']).substring(1, 37);
-        window.sessionStorage.setItem('access_token', this.token)
-        
-      },error =>{
+        localStorage.access_token = this.token;
+        console.log(localStorage.getItem('access_token'));
+      },error =>{ 
+        this.error = error.error.error_description;
         console.log(error.error.error_description)
-      });
+      }); 
   }
-
-
+  
+  print(){    
+    console.log(localStorage.getItem("access_token"))
+  }
+  
 }

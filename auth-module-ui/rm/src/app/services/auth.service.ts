@@ -17,8 +17,8 @@ const headers = {
 export class AuthService {
 
 private loginUrl = 'http://localhost:8080/oauth/token';
-private regUrl = 'http://localhost:8080/client';
-private resUrl = 'http://localhost:8081/simple';
+private regUrl = 'http://localhost:8080/auth';
+
  
   constructor(private http: HttpClient) {
   }
@@ -32,7 +32,4 @@ private resUrl = 'http://localhost:8081/simple';
     return this.http.post(this.regUrl + "/register?roleNames=ROLE_ADMIN", regForm, h);
   } 
  
-  getList(token: string): Observable<string[]>{  
-    return this.http.get<string[]>(this.resUrl + "/cars?access_token=" + token);
-  }
-}
+} 

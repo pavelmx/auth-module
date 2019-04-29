@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/client")
+@RequestMapping("/auth")
 @CrossOrigin(origins = "*")
 public class AccountController {
 
