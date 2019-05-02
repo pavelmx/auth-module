@@ -39,7 +39,8 @@
             <column name="authorities" value="ROLE_ADMIN"/>
             <column name="access_token_validity" value="3600"/>
             <column name="refresh_token_validity" value="10000"/>
-            <column name="autoapprove" value="*"/>
+            <column name="autoapprove" value="true"/>
+            <column name="web_server_redirect_uri" value="http://localhost:8081/client/carsfree"/>
         </insert>
     </changeSet>
 </databaseChangeLog>
