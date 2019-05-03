@@ -32,7 +32,7 @@ public class OAuth2ResourceConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-        resources.resourceId(resourceId).stateless(false).tokenStore(tokenStore());
+        resources.resourceId(resourceId).tokenStore(tokenStore());
     }
 
     @Override

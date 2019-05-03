@@ -39,8 +39,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    @Autowired
-    protected void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .userDetailsService(userDetailsService).passwordEncoder(encoder());
     }
@@ -51,27 +51,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .authorizeRequests()
                     .anyRequest().authenticated()
-                    .and()
-                        .formLogin().permitAll()
                     .and().csrf().disable()
                         .sessionManagement()
                             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and()
+
                         .exceptionHandling()
                         .authenticationEntryPoint((request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED));
 
 
 
     }
-
-
-
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//        web
-//                .ignoring()
-//                    .antMatchers("/h2_console/**","/auth/register", "/*");
-//
-//    }
 
 }

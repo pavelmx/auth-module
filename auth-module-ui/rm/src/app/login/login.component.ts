@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
 import { AuthService } from '../services/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -12,19 +12,19 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class LoginComponent implements OnInit {  
   form: any = {};
-  token: string =''; 
+  token: string ='';  
   error: string = '';  
  
   constructor(
     private authService: AuthService,    
-    ) { }
+    private cookieService: CookieService) { }
 
  
     ngOnInit() {
-      localStorage.clear();     
+      this.cookieService.delete('access_token');
     }    
-
-  onSubmit() {   
+ 
+  onSubmit() {      
     this.error =''; 
       const loginInfo = new HttpParams()
       .set('username', this.form.username)
@@ -34,12 +34,13 @@ export class LoginComponent implements OnInit {
       this.authService.login(loginInfo.toString())
       .subscribe( data =>{        
         this.token = JSON.stringify(data['access_token']).substring(1, 37);
-        localStorage.access_token = this.token;
-        console.log(localStorage.getItem('access_token'));
+        this.cookieService.set( 'access_token', this.token );
+        window.location.href = 'http://localhost:4201';
+        console.log(this.cookieService.get('access_token'));
       },error =>{ 
         this.error = error.error.error_description;
         console.log(error.error.error_description)
-      }); 
+      });
   }
   
   print(){    
