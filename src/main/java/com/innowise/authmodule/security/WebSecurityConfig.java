@@ -13,11 +13,26 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticationProcessingFilter;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
 
+import javax.servlet.Filter;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 
 @Configuration
@@ -33,6 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
+
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -45,22 +61,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .userDetailsService(userDetailsService).passwordEncoder(encoder());
     }
 
+    @Bean
+    public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
+        return new MySimpleUrlAuthenticationSuccessHandler();
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+
+
         http
-
                 .authorizeRequests()
-                    .anyRequest().authenticated()
-                    .and().csrf().disable()
-                        .sessionManagement()
-                            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                    .and()
+                .anyRequest().authenticated()
+                .and().csrf().disable()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
 
-                        .exceptionHandling()
-                        .authenticationEntryPoint((request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED));
+                ;
 
 
 
     }
-
 }

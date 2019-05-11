@@ -34,7 +34,18 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation('org.liquibase:liquibase-core')
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-tomcat'
+
+	implementation 'org.liquibase:liquibase-core'
+	
+	compile 'org.apache.tomcat.embed:tomcat-embed-jasper:9.0.19'
+	compile 'javax.servlet:jstl:1.2'
+//	compile group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.3.0.1'
+//	compile group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.0.1'
+
+
+
 	compile 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.1.4.RELEASE'
 	runtimeOnly 'org.postgresql:postgresql:42.2.5'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

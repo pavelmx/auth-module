@@ -13,6 +13,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class LoginComponent implements OnInit {  
   form: any = {};
   token: string ='';  
+  expires_in: number = 3600; 
   error: string = '';  
  
   constructor(
@@ -33,15 +34,19 @@ export class LoginComponent implements OnInit {
 
       this.authService.login(loginInfo.toString())
       .subscribe( data =>{        
+      //this.expires_in = JSON.stringify(data['expires_in']);
         this.token = JSON.stringify(data['access_token']).substring(1, 37);
-        this.cookieService.set( 'access_token', this.token );
-        window.location.href = 'http://localhost:4201';
-        console.log(this.cookieService.get('access_token'));
+        this.cookieService.set('access_token', this.token, this.expires_in * 1000);
+        //window.location.href = 'http://localhost:4201';
+        
+        
       },error =>{ 
         this.error = error.error.error_description;
         console.log(error.error.error_description)
       });
+     
   }
+  
   
   print(){    
     console.log(localStorage.getItem("access_token"))
