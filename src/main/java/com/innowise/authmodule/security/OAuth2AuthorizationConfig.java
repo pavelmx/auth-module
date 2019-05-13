@@ -14,15 +14,20 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.CompositeTokenGranter;
+import org.springframework.security.oauth2.provider.TokenGranter;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
 import javax.sql.DataSource;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableAuthorizationServer
-public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
+public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdapter   {
 
     @Autowired
     @Qualifier("authenticationManagerBean")
@@ -44,6 +49,7 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
     }
 
 
+
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.authenticationManager(this.authenticationManager)
@@ -53,8 +59,7 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()")
-                .passwordEncoder(passwordEncoder);
+        security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
     }
 
     @Override
@@ -67,8 +72,6 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
         System.out.println("User Oauth2 login success " + authorizedEvent.getAuthentication().getName());
 
     }
-
-
 
 
 }

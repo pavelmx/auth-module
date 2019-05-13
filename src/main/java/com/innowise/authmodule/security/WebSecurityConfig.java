@@ -61,26 +61,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .userDetailsService(userDetailsService).passwordEncoder(encoder());
     }
 
-    @Bean
-    public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
-        return new MySimpleUrlAuthenticationSuccessHandler();
-    }
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-
-
-        http
+        http.requestMatchers()
+                .antMatchers("/login", "/oauth/authorize")
+                .and()
                 .authorizeRequests()
                 .anyRequest().authenticated()
-                .and().csrf().disable()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-
-                ;
-
-
-
+                .and()
+                .formLogin().permitAll();
     }
 }

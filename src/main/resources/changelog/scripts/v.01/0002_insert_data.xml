@@ -35,12 +35,12 @@
             <column name="resource_ids" value="oauth2_application"/>
             <column name="client_secret" value="$2a$10$c3puEUrcC97yfm/o5wOnsurFayO.x39nvsHzQ/7gd5wo5Z3drr6C2"/>
             <column name="scope" value="read,write"/>
-            <column name="authorized_grant_types" value="refresh_token,password"/>
+            <column name="authorized_grant_types" value="refresh_token,password,authorization_code"/>
             <column name="authorities" value="ROLE_ADMIN"/>
             <column name="access_token_validity" value="3600"/>
             <column name="refresh_token_validity" value="10000"/>
             <column name="autoapprove" value="true"/>
-            <column name="web_server_redirect_uri" value="http://localhost:8081/client/carsfree"/>
+            <column name="web_server_redirect_uri" value="http://localhost:8082/login/oauth2/code/"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

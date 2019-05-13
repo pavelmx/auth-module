@@ -3,7 +3,7 @@
 <head></head>
 <body>
 <h1>Login</h1>
-<form name='f' action="/" method='POST'>
+<form name='f' action="/oauth/token" method='POST'>
     <table>
         <tr>
             <td>User:</td>
@@ -11,14 +11,12 @@
         </tr>
         <tr>
             <td>Password:</td>
-            <td><input type='password' name='password' /></td>
+            <td><input type='password' name='password'/></td>
         </tr>
-        <input type="hidden" name="grant_type" value="password" />
-        <input type="hidden" name="clientId" value="clientid" />
-        <input type="hidden" name="clientSecret" value="clientsecret" />
-        <input type="hidden" name="redirect_uri" th:value="${redirect_uri}" />
+        <input type="hidden" name="grant_type" value="password"/>
+        <input type="hidden" name="redirect_uri" th:value="${redirect_uri}"/>
         <tr>
-            <td><input name="submit" type="submit" value="submit" /></td>
+            <td><input name="submit" type="submit" value="submit"/></td>
         </tr>
     </table>
 </form>
