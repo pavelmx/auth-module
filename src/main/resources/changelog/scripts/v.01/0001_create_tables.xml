@@ -32,8 +32,8 @@
             <column name="authorized_grant_types" type="varchar(255)"></column>
             <column name="web_server_redirect_uri" type="varchar(255)"></column>
             <column name="authorities" type="varchar(255)"></column>
-            <column name="access_token_validity" type="int"></column>
-            <column name="refresh_token_validity" type="int"></column>
+            <column name="access_token_validity" type="bigint"></column>
+            <column name="refresh_token_validity" type="bigint"></column>
             <column name="additional_information" type="varchar(4096)"></column>
             <column name="autoapprove" type="varchar(255)"></column>
         </createTable>
@@ -50,13 +50,14 @@
 
 
     <changeSet id="create_table_user" author="oadmin">
-        <createTable schemaName="authschema" tableName="user">
-            <column name="id" type="int"  defaultValueSequenceNext="sq_user">
+        <createTable  tableName="user">
+            <column name="id" type="bigint"  defaultValueSequenceNext="sq_user">
                 <constraints primaryKey="true" primaryKeyName="pk_user_id" nullable="false"/>
             </column>
             <column name="username" type="varchar(50)">
                 <constraints unique="true" nullable="false"/>
             </column>
+            <column name="employee_id" type="bigint"></column>
             <column name="password" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
@@ -69,8 +70,8 @@
 
 
     <changeSet id="create_table_role" author="oadmin">
-        <createTable schemaName="authschema" tableName="role">
-            <column name="id" type="int" defaultValueSequenceNext="sq_role">
+        <createTable  tableName="role">
+            <column name="id" type="bigint" defaultValueSequenceNext="sq_role">
                 <constraints primaryKey="true" primaryKeyName="pk_role_id" nullable="false"/>
             </column>
             <column name="name" type="varchar(50)">
@@ -85,33 +86,29 @@
 
 
     <changeSet id="create_table_user_role" author="oadmin">
-        <createTable schemaName="authschema" tableName="user_role">
-            <column name="user_id" type="int">
+        <createTable tableName="user_role">
+            <column name="user_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="role_id" type="int">
+            <column name="role_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
         <addForeignKeyConstraint
                 constraintName="fk_user_role_user"
-                baseTableSchemaName="authschema"
                 baseTableName="user_role"
                 baseColumnNames="user_id"
                 referencedTableName="user"
                 referencedColumnNames="id"
-                referencedTableSchemaName="authschema"
                 deleteCascade="true"/>
 
         <addForeignKeyConstraint
                 constraintName="fk_user_role_role"
-                baseTableSchemaName="authschema"
                 baseTableName="user_role"
                 baseColumnNames="role_id"
                 referencedTableName="role"
                 referencedColumnNames="id"
-                referencedTableSchemaName="authschema"
                 deleteCascade="true"/>
 
     </changeSet>

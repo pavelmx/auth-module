@@ -6,14 +6,14 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <changeSet id="insert_to_role" author="oadmin" >
-        <insert schemaName="authschema" tableName="role">
+        <insert tableName="role">
             <column name="id" value="1"/>
             <column name="name" value="ROLE_ADMIN"/>
         </insert>
     </changeSet>
 
     <changeSet id="insert_to_user" author="oadmin" >
-        <insert schemaName="authschema" tableName="user">
+        <insert tableName="user">
             <column name="id"  value="1"/>
             <column name="username" value="admin"/>
             <column name="password" value="$2a$10$UvgQuK1Qr9mLvgrcsodOkOZ09TKGbSBfaVjuOtczTJPtie3kPzxXC"/>
@@ -22,7 +22,7 @@
     </changeSet>
 
     <changeSet id="insert_to_user_role" author="oadmin" >
-        <insert schemaName="authschema"  tableName="user_role">
+        <insert tableName="user_role">
             <column name="user_id" value="1"/>
             <column name="role_id" value="1"/>
 
@@ -35,12 +35,12 @@
             <column name="resource_ids" value="oauth2_application"/>
             <column name="client_secret" value="$2a$10$c3puEUrcC97yfm/o5wOnsurFayO.x39nvsHzQ/7gd5wo5Z3drr6C2"/>
             <column name="scope" value="read,write"/>
-            <column name="authorized_grant_types" value="refresh_token,password,authorization_code"/>
+            <column name="authorized_grant_types" value="password, refresh_token"/>
             <column name="authorities" value="ROLE_ADMIN"/>
             <column name="access_token_validity" value="3600"/>
             <column name="refresh_token_validity" value="10000"/>
             <column name="autoapprove" value="true"/>
-            <column name="web_server_redirect_uri" value="http://localhost:8082/login/oauth2/code/"/>
+            <column name="web_server_redirect_uri" value=""/>
         </insert>
     </changeSet>
 </databaseChangeLog>

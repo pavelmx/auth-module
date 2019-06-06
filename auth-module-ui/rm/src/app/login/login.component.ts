@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
 import { AuthService } from '../services/auth.service';
-import { Router, ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { ToastService } from '../services/toast.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,15 +14,16 @@ import { CookieService } from 'ngx-cookie-service';
 export class LoginComponent implements OnInit {  
   form: any = {};
   token: string ='';  
-  expires_in: number = 3600; 
   error: string = '';  
  
   constructor(
     private authService: AuthService,    
-    private cookieService: CookieService) { }
+    private cookieService: CookieService,
+    private router: Router,
+    private toastService: ToastService) { }
 
  
-    ngOnInit() {
+    ngOnInit() {      
       this.cookieService.delete('access_token');
     }    
  
@@ -34,22 +36,17 @@ export class LoginComponent implements OnInit {
 
       this.authService.login(loginInfo.toString())
       .subscribe( data =>{        
-      //this.expires_in = JSON.stringify(data['expires_in']);
         this.token = JSON.stringify(data['access_token']).substring(1, 37);
-        this.cookieService.set('access_token', this.token, this.expires_in * 1000);
-        //window.location.href = 'http://localhost:4201';
-        
-        
+        this.cookieService.set('access_token', this.token, 1);        
+        this.router.navigate(['/home']);
       },error =>{ 
-        this.error = error.error.error_description;
+        this.toastService.showError("Error", error.error.error_description);        
         console.log(error.error.error_description)
       });
      
   }
   
   
-  print(){    
-    console.log(localStorage.getItem("access_token"))
-  }
+  
   
 }

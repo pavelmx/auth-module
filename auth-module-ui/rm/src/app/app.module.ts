@@ -7,22 +7,26 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { CookieService } from 'ngx-cookie-service';
-
-
+import { ToastrModule } from 'ngx-toastr';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
+    HomeComponent,
     
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    
+    ToastrModule.forRoot({ timeOut: 5000, positionClass: 'toast-top-right'}),
+  
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

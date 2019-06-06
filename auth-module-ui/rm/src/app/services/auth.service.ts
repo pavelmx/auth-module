@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { RegisterForm } from '../models/registerForm';
 import { Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 
 const headers = {
@@ -17,10 +18,12 @@ const headers = {
 export class AuthService {
 
 private loginUrl = 'http://localhost:8080/oauth/token';
-private regUrl = 'http://localhost:8080/auth';
+private regUrl = 'http://localhost:8080';
+private checkUrl = 'http://localhost:8080/oauth/check_token';
 
  
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient
+    ,private cookieService: CookieService) {
   }
  
   login(credentials){ 
@@ -29,8 +32,13 @@ private regUrl = 'http://localhost:8080/auth';
 
 
   register(regForm: RegisterForm){
-    const h ={headers: new HttpHeaders({ 'Content-Type': 'application/json' })}
-    return this.http.post(this.regUrl + "/register?roleNames=ROLE_ADMIN", regForm, h);
+    const h = {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}
+    return this.http.post(this.regUrl + "/register?roleNames=ROLE_ADMIN&access_token=" + this.cookieService.get("access_token"), regForm, h);
+  } 
+
+  checkToken(token: string){
+    const h = {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}    
+    return this.http.post(this.checkUrl + "?token=" + token, h);
   } 
  
 }  
