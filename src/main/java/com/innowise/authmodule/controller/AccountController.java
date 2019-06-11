@@ -3,7 +3,6 @@ package com.innowise.authmodule.controller;
 import com.innowise.authmodule.entity.RestError;
 import com.innowise.authmodule.entity.User;
 import com.innowise.authmodule.service.UserService;
-import com.innowise.authmodule.service.UserServiceImpl;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,12 +36,14 @@ public class AccountController  {
         return user;
     }
 
-    @RequestMapping("/home")
-    public String home() {
-        return "You successfully loged in";
+    @RequestMapping("/public")
+    public String publicR() {
+        return "public";
     }
 
-
-
+    @RequestMapping("/private")
+    public String privateR() {
+        return "private";
+    }
 }
 

@@ -31,12 +31,7 @@ repositories {
 }
 
 dependencies {
-	compile group: 'org.webjars', name: 'bootstrap'
-	compile group: 'org.webjars', name: 'jquery'
-	compile group: 'org.webjars', name: 'webjars-locator-core'
-
-
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.liquibase:liquibase-core'

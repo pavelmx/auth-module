@@ -43,7 +43,8 @@ export class RegisterComponent implements OnInit {
       this.form.username,
       this.form.password
     );
-    this.authService.register(this.regForm)
+    var token = this.cookieService.get("access_token");
+    this.authService.register(this.regForm, token)
       .subscribe(data => {
         console.log(data);
         form.resetForm();

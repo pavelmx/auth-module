@@ -3,7 +3,6 @@ package com.innowise.authmodule.entity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.oauth2.provider.ClientDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -33,6 +32,8 @@ public class User implements UserDetails, Serializable {
     @NotBlank
     private String password;
 
+    private Long employeeId;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -49,6 +50,14 @@ public class User implements UserDetails, Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
     }
 
     public void setUsername(String username) {

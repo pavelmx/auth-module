@@ -20,20 +20,21 @@ export class AuthService {
 private loginUrl = 'http://localhost:8080/oauth/token';
 private regUrl = 'http://localhost:8080';
 private checkUrl = 'http://localhost:8080/oauth/check_token';
-
+private userUrl = 'http://localhost:8080/user/me';
  
-  constructor(private http: HttpClient
-    ,private cookieService: CookieService) {
+  constructor(
+    private http: HttpClient,
+    private cookieService: CookieService) {
   }
  
   login(credentials){ 
     return this.http.post(this.loginUrl, credentials, {headers});
   }
 
-
-  register(regForm: RegisterForm){
+  register(regForm: RegisterForm, token: string){
+    var role = "ROLE_ADMIN";
     const h = {headers: new HttpHeaders({ 'Content-Type': 'application/json' })}
-    return this.http.post(this.regUrl + "/register?roleNames=ROLE_ADMIN&access_token=" + this.cookieService.get("access_token"), regForm, h);
+    return this.http.post(this.regUrl + "/register?roleNames=" + role + "&access_token=" + token, regForm, h);
   } 
 
   checkToken(token: string){
@@ -41,4 +42,7 @@ private checkUrl = 'http://localhost:8080/oauth/check_token';
     return this.http.post(this.checkUrl + "?token=" + token, h);
   } 
  
+  getEmployeeId(token: string){
+    return this.http.get(this.userUrl + "?access_token=" + token);
+  }
 }  

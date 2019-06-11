@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
     private cookieService: CookieService
   ) { }
 
-  ngOnInit() {
+  ngOnInit() {   
     var token = this.cookieService.get("access_token");
     this.authService.checkToken(token)
     .subscribe(

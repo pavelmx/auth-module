@@ -17,7 +17,7 @@
             <column name="id"  value="1"/>
             <column name="username" value="admin"/>
             <column name="password" value="$2a$10$UvgQuK1Qr9mLvgrcsodOkOZ09TKGbSBfaVjuOtczTJPtie3kPzxXC"/>
-
+            <column name="employee_id"  value="555"/>
         </insert>
     </changeSet>
 
@@ -35,7 +35,7 @@
             <column name="resource_ids" value="oauth2_application"/>
             <column name="client_secret" value="$2a$10$c3puEUrcC97yfm/o5wOnsurFayO.x39nvsHzQ/7gd5wo5Z3drr6C2"/>
             <column name="scope" value="read,write"/>
-            <column name="authorized_grant_types" value="password, refresh_token"/>
+            <column name="authorized_grant_types" value="password,refresh_token"/>
             <column name="authorities" value="ROLE_ADMIN"/>
             <column name="access_token_validity" value="3600"/>
             <column name="refresh_token_validity" value="10000"/>
