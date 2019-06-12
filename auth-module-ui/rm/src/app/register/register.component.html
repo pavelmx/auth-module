@@ -1,5 +1,7 @@
+<app-home></app-home>
+
 <div class="container mt-5" style="max-width: 500px">
-  <h2>Registration</h2>
+  <div class="display-4 mb-4">Registration user</div>
   <form name="form" (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm">
     <div class="form-group">
       <input type="text" class="form-control" name="username" placeholder="Username" [(ngModel)]="form.username"
@@ -11,6 +13,15 @@
     </div>
 
     <div class="form-group "> 
+      <input type="text" class="form-control" name="email" placeholder="Email" [(ngModel)]="form.email"
+        #email="ngModel" required
+        [ngClass]="{'is-valid':email.valid && email.touched,'is-invalid':email.invalid && email.touched}" />
+      <div *ngIf="email.touched && email.invalid">
+        <small class="form-text alert alert-danger" *ngIf="email.errors.required">Email is required</small>
+      </div>
+    </div>
+
+    <div class="form-group "> 
       <input type="password" class="form-control" name="password" placeholder="Password" [(ngModel)]="form.password"
         #password="ngModel" required
         [ngClass]="{'is-valid':password.valid && password.touched,'is-invalid':password.invalid && password.touched}" />
@@ -18,6 +29,22 @@
         <small class="form-text alert alert-danger" *ngIf="password.errors.required">Password is required</small>
       </div>
     </div>
+
+    <div class="form-group">
+      <label for="manager_id">Employee</label>
+      <select [disabled]="toggle" required class="custom-select" name="employee_id"
+        [(ngModel)]="form.employee_id" #employee_id="ngModel"
+        [ngClass]="{'is-valid':employee_id.valid && employee_id.touched,'is-invalid':employee_id.invalid && employee_id.touched}">
+        <option *ngFor="let employee of employeeList" [ngValue]="employee.id">
+          {{employee.personalInfo.firstName}} {{employee.personalInfo.lastName}}</option>
+      </select>
+    </div>
+    <div class="custom-control custom-checkbox">
+      <input type="checkbox" class="custom-control-input" id="customCheck1" (click)="toggleCheckBox()">
+      <label class="custom-control-label" for="customCheck1">Not employee</label>
+    </div>
+
+
 <!-- 
     <div class="form-group">
       <input type="text" class="form-control" name="first_name" placeholder="first_name" [(ngModel)]="form.first_name"
@@ -63,7 +90,7 @@
  -->
     
     <div class="form-group">
-      <button class="btn btn-primary" [disabled]="f.form.invalid">Register</button>
+      <button class="btn btn-primary mt-3" [disabled]="f.form.invalid">Register</button>
     </div>
   </form>
   <div>

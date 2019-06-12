@@ -1,7 +1,7 @@
 <div class=" container mt-5 " style="max-width:500px">
 
   <div class=" ">
-    <h2>Login </h2>
+    <div class="display-4 mb-4">Login</div>
     <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
       <div class="form-group">
         <input type="text" class="form-control" name="username" placeholder="Username" [(ngModel)]="form.username"
@@ -25,7 +25,9 @@
           <div class="col">
             <button class="btn btn-primary" [disabled]="f.form.invalid">Login</button>
           </div>
-          
+          <div class="col">
+            <a class="nav-link" routerLink="/reset-password">Forgot password?</a>
+          </div>
         </div>
       </div>
     </form> 

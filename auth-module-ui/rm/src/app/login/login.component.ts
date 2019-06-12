@@ -39,6 +39,15 @@ export class LoginComponent implements OnInit {
       this.routLink = this.resultLink.substring(22);
       console.log(this.routLink);
     }
+    if (snapshot.url.includes("#")) {
+      var routParam = snapshot.url.split("#")[1];
+      var routLink = routParam.split("?")[0];    
+      var paramToken = routParam.split("?")[1];
+      var token = paramToken.split("=")[1];
+      this.cookieService.set('reset_token', token);
+      console.log(routLink);
+      this.router.navigate(["/" + routLink]);
+    }
   }
 
   redirectToLink() {
@@ -57,6 +66,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.getRedirectLink();
     this.cookieService.delete('access_token');
+
+    
   }
 
   onSubmit() {
@@ -83,6 +94,8 @@ export class LoginComponent implements OnInit {
         response => {
           var employeeId = response['principal'].employeeId;        
           this.cookieService.set('employeeId', employeeId);
+          var username = response['principal'].username; 
+          this.cookieService.set('username', username);
           console.log(employeeId)
         },
         error => {

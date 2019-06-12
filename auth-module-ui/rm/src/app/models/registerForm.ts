@@ -3,18 +3,18 @@ export class RegisterForm{
     /*first_name: string;
     last_name: string;
     
-    email: string;
+    
     skype: string;
     tel: string;
     role: string[];*/
     password: string;
     username: string;
- 
-    constructor( username: string, password: string) {
-       
-        this.username = username;
-       
-        this.password = password; 
+    email: string;
+
+    constructor(username: string, password: string, email: string) {
+               this.username = username;
+        this.password = password;
+        this.email = email;
     }
 
     /*constructor(first_name: string, last_name: string, username: string, email: string, tel: string, skype: string, password: string, roles: string[]) {

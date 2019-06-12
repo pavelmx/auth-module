@@ -5,6 +5,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -15,7 +16,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "user", schema = "authschema",
+@Table(name = "user",
         uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
 public class User implements UserDetails, Serializable {
 
@@ -31,6 +32,10 @@ public class User implements UserDetails, Serializable {
 
     @NotBlank
     private String password;
+
+    @NotBlank
+    @Email
+    private String email;
 
     private Long employeeId;
 
@@ -97,6 +102,14 @@ public class User implements UserDetails, Serializable {
         List<GrantedAuthority> authorities = getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
         return authorities;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

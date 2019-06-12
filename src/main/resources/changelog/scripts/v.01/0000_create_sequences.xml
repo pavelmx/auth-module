@@ -20,5 +20,10 @@
                         minValue="1000"/>
     </changeSet>
 
+    <changeSet id="sq_password_reset_token" author="oadmin">
+        <createSequence sequenceName="sq_password_reset_token" incrementBy="10" startValue="1000"
+                        minValue="1000"/>
+    </changeSet>
+
 
 </databaseChangeLog>

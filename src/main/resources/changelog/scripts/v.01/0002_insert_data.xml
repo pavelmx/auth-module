@@ -18,6 +18,7 @@
             <column name="username" value="admin"/>
             <column name="password" value="$2a$10$UvgQuK1Qr9mLvgrcsodOkOZ09TKGbSBfaVjuOtczTJPtie3kPzxXC"/>
             <column name="employee_id"  value="555"/>
+            <column name="email"  value="admin@admin"/>
         </insert>
     </changeSet>
 

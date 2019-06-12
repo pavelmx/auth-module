@@ -28,7 +28,8 @@ public class OAuth2ResourceConfig extends ResourceServerConfigurerAdapter {
                 .and()
                     .authorizeRequests()
                     .antMatchers("/", "/**.css", "/**.js", "/**.ico").permitAll()
-                    .antMatchers("/public").permitAll()
+                    .antMatchers("/public", "/forgot-password/**",
+                            "/reset-password/**", "/reset/**").permitAll()
                     .anyRequest().authenticated()
 
         ;
