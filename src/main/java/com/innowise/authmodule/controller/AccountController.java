@@ -43,8 +43,13 @@ public class AccountController  {
         return user;
     }
 
+    @GetMapping("/update")
+    public ResponseEntity<?> updatePassword(@RequestParam Long employeeId, @RequestParam Long userId){
+        return new ResponseEntity<>(userService.update(employeeId, userId), HttpStatus.OK);
+    }
+
     @GetMapping("/update-password/{id}")
-    public ResponseEntity<?> updatePassword(@RequestParam String password, @PathVariable Long id){
+    public ResponseEntity<?> updateEmployeeId(@RequestParam String password, @PathVariable Long id){
         userService.updatePassword(password, id);
         return new ResponseEntity<>(new RestError("Password success updated"), HttpStatus.OK);
     }
@@ -74,16 +79,6 @@ public class AccountController  {
         return new ResponseEntity<>((User) userService.findUserByUsername(username), HttpStatus.OK);
     }
 
-    ////test methods
 
-    @RequestMapping("/public")
-    public String publicR() {
-        return "public";
-    }
-
-    @RequestMapping("/private")
-    public String privateR() {
-        return "private";
-    }
 }
 

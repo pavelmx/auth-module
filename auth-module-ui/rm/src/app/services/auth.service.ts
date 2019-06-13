@@ -25,8 +25,9 @@ private principalUrl = 'http://localhost:8080/user/me';
 private userUrl = 'http://localhost:8080/user';
 private forgotUrl = 'http://localhost:8080/forgot-password'; 
 private resetUrl = 'http://localhost:8080/reset-password'; 
-private updateUrl = 'http://localhost:8080/update-password/'; 
+private updatePasswordUrl = 'http://localhost:8080/update-password/'; 
 private activeEmployeeUrl = 'http://localhost:8087/employee/active'; 
+private updateUrl = 'http://localhost:8080/update'; 
 
   constructor(
     private http: HttpClient
@@ -69,10 +70,14 @@ private activeEmployeeUrl = 'http://localhost:8087/employee/active';
   }
 
   updatePassword(id: number, password: string, token: string){
-    return this.http.get(this.updateUrl + id + "?password=" + password + "&access_token=" + token);
+    return this.http.get(this.updatePasswordUrl + id + "?password=" + password + "&access_token=" + token);
   }
 
   getActiveEmployees(token: string): Observable<Employee[]>{
     return this.http.get<Employee[]>(this.activeEmployeeUrl + "?access_token=" + token);
+  }
+
+  updateEmployeeId(id: number, employee_id: number, token: string){   
+    return this.http.get(this.updateUrl + "?userId=" + id + "&employeeId=" + employee_id + "&access_token=" + token);
   }
 }  

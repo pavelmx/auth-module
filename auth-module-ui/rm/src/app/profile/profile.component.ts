@@ -26,10 +26,8 @@ export class ProfileComponent implements OnInit {
     this.initUser()
   }
 
-  compareFn(x: any, y:any): boolean{     
-    console.log(x)
-    console.log(y)
-    return x && y ? x.id === y.id: x === y;
+  compareFn(x: any, y:any): boolean{    
+    return x && y ? x === y: x === y;
   }
 
   initUser(){
@@ -60,6 +58,21 @@ export class ProfileComponent implements OnInit {
       },
       error => {
         console.log(error);
+      }
+    );
+  }
+
+  updateEmployeeId(){
+    console.log("id " + this.form.id);
+    console.log("emp id " + this.form.employee_id);
+    this.authService.updateEmployeeId(this.form.id, this.form.employee_id, this.accessToken)
+    .subscribe(
+      response => {
+        this.initUser();
+        this.toastService.showSuccess("", "EmployeeId changed successfully");
+      },
+      error => {
+        
       }
     );
   }

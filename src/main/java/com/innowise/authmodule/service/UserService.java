@@ -15,7 +15,9 @@ public interface UserService {
 
     UserDetails loadUserByEmail(String username);
 
-    User create(User user, String roleNames, String employee_id) throws AccountException, NotFoundException;
+    User create(User user, String roleNames, String employeeId) throws AccountException, NotFoundException;
+
+    User update(Long employeeId, Long idUser);
 
     void createPasswordResetTokenForUser(User user, String token);
 

@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.getRedirectLink();
     this.cookieService.delete("access_token");   
-    this.cookieService.delete("employee_id");
+    this.cookieService.delete("employeeId");
     this.cookieService.delete("username"); 
   }
 

@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User create(User user, String roleNames, String employee_id) throws AccountException, NotFoundException {
+    public User create(User user, String roleNames, String employeeId) throws AccountException, NotFoundException {
         if (userRepo.existsByUsername(user.getUsername())) {
             throw new AccountException("Username '" + user.getUsername() + "' already exists");
         }
@@ -77,12 +77,24 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }*/
         roles.add(roleRepo.findByName(roleNames).get());
         user.setRoles(roles);
-        if (employee_id != "") user.setEmployeeId(Long.valueOf(employee_id));
+        if (employeeId != "") user.setEmployeeId(Long.valueOf(employeeId));
         else user.setEmployeeId(null);
         user.setCreated(LocalDateTime.now());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepo.save(user);
         return user;
+    }
+
+    @Override
+    public User update(Long employeeId, Long userId) {
+        User user = userRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User with id: '" + userId + "' not found"));
+        if (employeeId == 0) {
+            user.setEmployeeId(null);
+        }else{
+            user.setEmployeeId(employeeId);
+        }
+        return userRepo.save(user);
     }
 
     @Override
