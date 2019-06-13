@@ -10,7 +10,7 @@
 
   <div class="form-group">
     <label for="employee_id">Employee_id</label>
-    <select [disabled]="toggle" [compareWith]="compareFn" class="custom-select" name="employee_id"
+    <select [compareWith]="compareFn" class="custom-select" name="employee_id"
       [(ngModel)]="form.employee_id" #employee_id="ngModel">
       <option *ngFor="let employee of employeeList" [ngValue]="employee.id">
         {{employee.personalInfo.firstName}} {{employee.personalInfo.lastName}}</option>

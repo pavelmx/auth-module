@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void createPasswordResetTokenForUser(User user, String token) {
-        PasswordResetToken myToken = new PasswordResetToken(token, user, 60);
+        PasswordResetToken myToken = new PasswordResetToken(token, user, 1);
         passwordTokenRepository.save(myToken);
     }
 
@@ -109,7 +109,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         String toEmail = user.getEmail();
         String fromEmail = "hr@innowise.group";
         String subject = "Password reset request";
-        String message = "http://localhost:4200#reset-password?token=" + token;
+        String message = "This link is active for one hour. \n" +
+                "http://localhost:8080#reset-password?token=" + token;
         mailSender.sendEmail(toEmail, fromEmail, subject, message);
         return "Reset link send to your email";
     }
