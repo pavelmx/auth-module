@@ -56,19 +56,6 @@ public class AccountController  {
          return new ResponseEntity<>(new RestError(result), HttpStatus.OK);
     }
 
-    @GetMapping("/reset-password")
-    public ResponseEntity<?> getToken(@RequestParam(required = false) String token){
-        System.out.println("---------------" + 2);
-        PasswordResetToken resetToken = passwordTokenRepository.findByToken(token)
-                .orElseThrow(() -> new RuntimeException("Could not find reset token"));
-        if (resetToken == null){
-            return new ResponseEntity<>(new RestError("Could not find password reset token"), HttpStatus.BAD_REQUEST);
-        } else if (resetToken.isExpired()){
-            return new ResponseEntity<>(new RestError("Token has expired, please request a new password reset"), HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(resetToken.getToken(), HttpStatus.OK);
-    }
-
     @PostMapping("/reset-password")
     public ResponseEntity<?> resetPassword(@RequestParam String password,
                                            @RequestParam String token){

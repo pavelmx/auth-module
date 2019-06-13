@@ -8,10 +8,8 @@ import com.innowise.authmodule.repository.RoleRepositoryImpl;
 import com.innowise.authmodule.repository.UserRepositoryImpl;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,21 +42,21 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 
     @Override
-    public UserDetails loadUserByUsername(String username)  {
+    public UserDetails loadUserByUsername(String username) {
         User user = userRepo.findByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException("User with username: '" + username + "' not found."));
         return user;
     }
 
     @Override
-    public User findUserByUsername(String username)  {
+    public User findUserByUsername(String username) {
         User user = userRepo.findByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException("User with username: '" + username + "' not found."));
         return user;
     }
 
     @Override
-    public UserDetails loadUserByEmail(String email)  {
+    public UserDetails loadUserByEmail(String email) {
         User user = userRepo.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException("User with email: '" + email + "' not found."));
         return user;
@@ -66,10 +64,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User create(User user, String roleNames, String employee_id) throws AccountException, NotFoundException {
-        if(userRepo.existsByUsername(user.getUsername())){
+        if (userRepo.existsByUsername(user.getUsername())) {
             throw new AccountException("Username '" + user.getUsername() + "' already exists");
         }
-        if(userRepo.existsByEmail(user.getEmail())){
+        if (userRepo.existsByEmail(user.getEmail())) {
             throw new AccountException("Email '" + user.getEmail() + "' is already taken");
         }
         Set<Role> roles = new HashSet<>();
@@ -79,11 +77,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }*/
         roles.add(roleRepo.findByName(roleNames).get());
         user.setRoles(roles);
-        if(employee_id != "") {
-            user.setEmployeeId(Long.valueOf(employee_id));
-        }else {
-            user.setEmployeeId(null);
-        }
+        if (employee_id != "") user.setEmployeeId(Long.valueOf(employee_id));
+        else user.setEmployeeId(null);
         user.setCreated(LocalDateTime.now());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepo.save(user);
@@ -114,9 +109,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         String toEmail = user.getEmail();
         String fromEmail = "hr@innowise.group";
         String subject = "Password reset request";
-        String message = "http://localhost:8080#reset-password?token=" + token;
+        String message = "http://localhost:4200#reset-password?token=" + token;
         mailSender.sendEmail(toEmail, fromEmail, subject, message);
-        return  "Reset link send to your email";
+        return "Reset link send to your email";
     }
 
     @Override
@@ -127,6 +122,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         User user = resetToken.getUser();
         updatePassword(password, user.getId());
         passwordTokenRepository.deleteById(resetToken.getId());
-        return  "Reset password success";
+        return "Reset password success";
     }
 }

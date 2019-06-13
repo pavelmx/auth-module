@@ -15,8 +15,9 @@ export class ForgotPasswordComponent implements OnInit {
   confirmPassword: string;
   email: string;
   token: string;
-  isReset: boolean = false;
-
+  isReset: boolean;
+  load: boolean;
+  isSend: boolean;
 
   constructor(
     private service: AuthService,
@@ -27,25 +28,32 @@ export class ForgotPasswordComponent implements OnInit {
 
   ngOnInit() {
     this.initParam();    
-    
-    if (this.token) {
-      this.isReset = true;
-    }    
+    this.cookieService.delete('reset_token');
+      console.log(this.isReset)
   }
 
   initParam() {
+    this.isSend = false;
+    this.load = false;
+    this.isReset = false;
     this.password = '';
     this.confirmPassword = '';
     this.email = '';
-    this.token = this.cookieService.get('reset_token');
+    this.token = this.cookieService.get('reset_token'); 
+    if (this.token) {
+      this.isReset = true;
+    }  
   }
 
   checkEmail() {
+    this.load = true;
+    this.isSend = true;
     this.service.forgotPassword(this.email)
       .subscribe(
         response => {
           this.toast.showInfo("", response['message']);
           console.log(response)
+          this.load = false;
         },
         error => {
           this.toast.showError("", error.error.message);
@@ -54,13 +62,13 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   resetPassword() {
-    console.log(this.token)
     this.service.resetPassword(this.password, this.token)
       .subscribe(
         response => {
           this.toast.showInfo("", response['message']);
           console.log(response)
-          this.router.navigate(['/login']);
+          
+         
         },
         error => {
           this.initParam();
@@ -68,7 +76,15 @@ export class ForgotPasswordComponent implements OnInit {
           this.toast.showError("", error.error.message);
         }
       );
-      this.cookieService.delete('reset_token');
+      this.router.navigate(['/login']);
   }
+
+  matchPasswords(password, confirmPassword){
+    if(password === confirmPassword){
+      this.resetPassword();
+    }else{
+      this.toast.showError("", "Passwords don't match");      
+    }
+  }  
 
 }

@@ -1,7 +1,7 @@
 <app-home></app-home>
 
 <div class="container mt-5" style="max-width: 500px">
-  <div class="display-4 mb-4">Registration user</div>
+  <div class="display-4 mb-4 d-flex justify-content-center">Registration user</div>
   <form name="form" (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm">
     <div class="form-group">
       <input type="text" class="form-control" name="username" placeholder="Username" [(ngModel)]="form.username"

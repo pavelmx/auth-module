@@ -63,9 +63,9 @@ private activeEmployeeUrl = 'http://localhost:8087/employee/active';
     return this.http.get(this.forgotUrl + "?email=" + email);
   }
 
-  resetPassword(password: string){
+  resetPassword(password: string, token: string){
     var o = new Object();
-    return this.http.post(this.resetUrl + "?password=" + password, o);
+    return this.http.post(this.resetUrl + "?password=" + password + "&token=" + token, o);
   }
 
   updatePassword(id: number, password: string, token: string){
